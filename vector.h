@@ -36,7 +36,7 @@ public:
 // the private methods
 private:
     void copy(const Vector& other);
-    void resize();
+    void resize(size_t newSize);
 
 // the private members
 private:
@@ -104,7 +104,7 @@ void Vector<T>::push_back(const T& _data)
 {
     if(m_capacity >= m_size)
     {
-        resize();
+        resize(m_size * 2);
     }
     m_data[m_capacity] = _data;
     m_capacity++;
@@ -135,7 +135,7 @@ void Vector<T>::insert(const T& _data, const size_t position)
     {
         if(m_capacity >= m_size)
         {
-            resize();
+            resize(m_size * 2);
         }
         T* newData = new T[m_size];
         for(size_t i = 0; i <= m_capacity; i++)
@@ -249,9 +249,9 @@ void Vector<T>::print()
 
 // the private methods
 template <typename T>
-void Vector<T>::resize()
+void Vector<T>::resize(size_t newSize)
 {
-    m_size *= 2;
+    m_size = newSize;
     T* newData = new T[m_size];
     for(size_t i = 0; i < m_capacity; i++)
     {
