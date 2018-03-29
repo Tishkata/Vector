@@ -11,7 +11,7 @@ class Vector
 // the public constructors and operators
 public:
     Vector();
-    Vector(const T* _data, const size_t _size, const size_t _capacity);
+    Vector(const T* data, const size_t size, const size_t capacity);
     Vector(const Vector& other);
     Vector& operator =(const Vector& other);
     T& operator[](size_t idx);
@@ -19,9 +19,9 @@ public:
 
 // the public methods
 public:
-    void push_back(const T& _data);
+    void push_back(const T& data);
     void pop_back();
-    void insert(const T& _data, const size_t position);
+    void insert(const T& data, const size_t position);
     void erase(const size_t position);
     void sort();
     void clear();
@@ -56,14 +56,14 @@ Vector<T>::Vector()
 }
 
 template <typename T>
-Vector<T>::Vector(const T* _data, const size_t _size, const size_t _capacity)
+Vector<T>::Vector(const T* data, const size_t size, const size_t capacity)
 {
-    m_size = _size;
-    m_capacity = _capacity;
-    m_data = new T[_size];
-    for(size_t i = 0; i < _capacity; i++)
+    m_size = size;
+    m_capacity = capacity;
+    m_data = new T[size];
+    for(size_t i = 0; i < capacity; i++)
     {
-        m_data[i] = _data[i];
+        m_data[i] = data[i];
     }
 }
 
