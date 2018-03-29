@@ -100,13 +100,13 @@ Vector<T>::~Vector()
 }
 
 template <typename T>
-void Vector<T>::push_back(const T& _data)
+void Vector<T>::push_back(const T& data)
 {
     if(m_capacity >= m_size)
     {
         resize(m_size * 2);
     }
-    m_data[m_capacity] = _data;
+    m_data[m_capacity] = data;
     m_capacity++;
 }
 
@@ -124,7 +124,7 @@ void Vector<T>::pop_back()
 }
 
 template <typename T>
-void Vector<T>::insert(const T& _data, const size_t position)
+void Vector<T>::insert(const T& data, const size_t position)
 {
     if(position < 0 || position > m_capacity)
     {
@@ -146,7 +146,7 @@ void Vector<T>::insert(const T& _data, const size_t position)
             }
             else if(i == position)
             {
-                newData[i] = _data;
+                newData[i] = data;
             }
             else
             {
