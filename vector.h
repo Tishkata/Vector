@@ -160,7 +160,7 @@ void Vector<T>::insert(const T& data, const size_t position)
 }
 
 template <typename T>
-void Vector<T>::erase(size_t position)
+void Vector<T>::erase(const size_t position)
 {
     if(position < 0 || position > m_capacity)
     {
