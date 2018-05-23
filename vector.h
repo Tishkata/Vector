@@ -14,15 +14,15 @@ public:
     Vector(const T* data, const size_t size, const size_t capacity);
     Vector(const Vector& other);
     Vector& operator =(const Vector& other);
-    T& operator[](size_t idx);
+    T& operator[](const size_t& idx);
     ~Vector();
 
 // the public methods
 public:
     void push_back(const T& data);
     void pop_back();
-    void insert(const T& data, const size_t position);
-    void erase(const size_t position);
+    void insert(const T& data, const size_t& position);
+    void erase(const size_t& position);
     void sort();
     void clear();
 
@@ -36,7 +36,7 @@ public:
 // the private methods
 private:
     void copy(const Vector& other);
-    void resize(size_t newSize);
+    void resize(const size_t& newSize);
 
 // the private members
 private:
@@ -124,7 +124,7 @@ void Vector<T>::pop_back()
 }
 
 template <typename T>
-void Vector<T>::insert(const T& data, const size_t position)
+void Vector<T>::insert(const T& data, const size_t& position)
 {
     if(position < 0 || position > m_capacity)
     {
@@ -160,7 +160,7 @@ void Vector<T>::insert(const T& data, const size_t position)
 }
 
 template <typename T>
-void Vector<T>::erase(const size_t position)
+void Vector<T>::erase(const size_t& position)
 {
     if(position < 0 || position > m_capacity)
     {
@@ -249,7 +249,7 @@ void Vector<T>::print()
 
 // the private methods
 template <typename T>
-void Vector<T>::resize(size_t newSize)
+void Vector<T>::resize(const size_t& newSize)
 {
     m_size = newSize;
     T* newData = new T[m_size];
