@@ -19,31 +19,30 @@ public:
 
 // the public methods
 public:
-    void push_back(const TYPE& data);
-    void pop_back();
-    void insert(const TYPE& data, const size_t& position);
-    void erase(const size_t& position);
-    void sort();
-    void clear();
+    void Push_back(const TYPE& data);
+    void Pop_back();
+    void Insert(const TYPE& data, const size_t& position);
+    void Erase(const size_t& position);
+    void Sort();
+    void Clear();
 
-    size_t getSize() const;
-    size_t getCapacity() const;
-    bool isEmpty() const;
-    TYPE& front() const;
-    TYPE& back() const;
-    void print() const;
+    size_t GetSize() const;
+    size_t GetCapacity() const;
+    bool IsEmpty() const;
+    TYPE& Front() const;
+    TYPE& Back() const;
+    void Print() const;
 
 // the private methods
 private:
-    void copy(const Vector& other);
-    void resize(const size_t& newSize);
+    void Copy(const Vector& other);
+    void Resize(const size_t& newSize);
 
 // the private members
 private:
     TYPE* m_data;
     size_t m_size;
     size_t m_capacity;
-
 };
 
 // the public methods
@@ -72,7 +71,7 @@ Vector<TYPE>::Vector(const Vector& other)
 {
     if(this != &other)
     {
-        copy(other);
+        Copy(other);
     }
 }
 
@@ -81,7 +80,7 @@ Vector<TYPE>& Vector<TYPE>::operator=(const Vector& other)
 {
     if(this != &other)
     {
-        copy(other);
+        Copy(other);
     }
     return *this;
 }
@@ -99,18 +98,18 @@ Vector<TYPE>::~Vector()
 }
 
 template <class TYPE>
-void Vector<TYPE>::push_back(const TYPE& data)
+void Vector<TYPE>::Push_back(const TYPE& data)
 {
     if(m_capacity >= m_size)
     {
-        resize(m_size * 2);
+        Resize(m_size * 2);
     }
     m_data[m_capacity] = data;
     m_capacity++;
 }
 
 template <class TYPE>
-void Vector<TYPE>::pop_back()
+void Vector<TYPE>::Pop_back()
 {
     TYPE* newData = new TYPE[m_capacity - 1];
     for(size_t i = 0; i < m_capacity - 1; i++)
@@ -123,7 +122,7 @@ void Vector<TYPE>::pop_back()
 }
 
 template <class TYPE>
-void Vector<TYPE>::insert(const TYPE& data, const size_t& position)
+void Vector<TYPE>::Insert(const TYPE& data, const size_t& position)
 {
     if(position < 0 || position > m_capacity)
     {
@@ -134,7 +133,7 @@ void Vector<TYPE>::insert(const TYPE& data, const size_t& position)
     {
         if(m_capacity >= m_size)
         {
-            resize(m_size * 2);
+            Resize(m_size * 2);
         }
         TYPE* newData = new TYPE[m_size];
         for(size_t i = 0; i <= m_capacity; i++)
@@ -159,7 +158,7 @@ void Vector<TYPE>::insert(const TYPE& data, const size_t& position)
 }
 
 template <class TYPE>
-void Vector<TYPE>::erase(const size_t& position)
+void Vector<TYPE>::Erase(const size_t& position)
 {
     if(position < 0 || position > m_capacity)
     {
@@ -180,7 +179,7 @@ void Vector<TYPE>::erase(const size_t& position)
 }
 
 template <class TYPE>
-void Vector<TYPE>::sort()
+void Vector<TYPE>::Sort()
 {
     TYPE temp;
     for(size_t i = 0; i < m_capacity; i++)
@@ -198,7 +197,7 @@ void Vector<TYPE>::sort()
 }
 
 template <class TYPE>
-void Vector<TYPE>::clear()
+void Vector<TYPE>::Clear()
 {
     delete[] m_data;
     m_data = nullptr;
@@ -207,38 +206,38 @@ void Vector<TYPE>::clear()
 }
 
 template <class TYPE>
-size_t Vector<TYPE>::getSize() const
+size_t Vector<TYPE>::GetSize() const
 {
     return this->m_size;
 }
 
 
 template <class TYPE>
-size_t Vector<TYPE>::getCapacity() const
+size_t Vector<TYPE>::GetCapacity() const
 {
     return m_capacity;
 }
 
 template <class TYPE>
-bool Vector<TYPE>::isEmpty() const
+bool Vector<TYPE>::IsEmpty() const
 {
     return m_size == 0;
 }
 
 template <class TYPE>
-TYPE& Vector<TYPE>::front() const
+TYPE& Vector<TYPE>::Front() const
 {
     return m_data[0];
 }
 
 template <class TYPE>
-TYPE& Vector<TYPE>::back() const
+TYPE& Vector<TYPE>::Back() const
 {
     return m_data[m_capacity - 1];
 }
 
 template <class TYPE>
-void Vector<TYPE>::print() const
+void Vector<TYPE>::Print() const
 {
     for(size_t i = 0; i < m_capacity; i++)
     {
@@ -248,7 +247,7 @@ void Vector<TYPE>::print() const
 
 // the private methods
 template <class TYPE>
-void Vector<TYPE>::resize(const size_t& newSize)
+void Vector<TYPE>::Resize(const size_t& newSize)
 {
     m_size = newSize;
     TYPE* newData = new TYPE[m_size];
@@ -261,7 +260,7 @@ void Vector<TYPE>::resize(const size_t& newSize)
 }
 
 template <class TYPE>
-void Vector<TYPE>::copy(const Vector &other)
+void Vector<TYPE>::Copy(const Vector &other)
 {
     m_size = other.m_size;
     m_capacity = other.m_capacity;
