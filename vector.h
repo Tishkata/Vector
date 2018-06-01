@@ -5,23 +5,23 @@
 
 using namespace std;
 
-template <typename T>
+template <class TYPE>
 class Vector
 {
 // the public constructors and operators
 public:
     Vector();
-    Vector(const T* data, const size_t size, const size_t capacity);
+    Vector(const TYPE* data, const size_t size, const size_t capacity);
     Vector(const Vector& other);
     Vector& operator =(const Vector& other);
-    T& operator[](const size_t& idx);
+    TYPE& operator[](const size_t& idx);
     ~Vector();
 
 // the public methods
 public:
-    void push_back(const T& data);
+    void push_back(const TYPE& data);
     void pop_back();
-    void insert(const T& data, const size_t& position);
+    void insert(const TYPE& data, const size_t& position);
     void erase(const size_t& position);
     void sort();
     void clear();
@@ -29,9 +29,9 @@ public:
     size_t getSize() const;
     size_t getCapacity() const;
     bool isEmpty() const;
-    T& front() const;
-    T& back() const;
-    void print();
+    TYPE& front() const;
+    TYPE& back() const;
+    void print() const;
 
 // the private methods
 private:
@@ -40,35 +40,35 @@ private:
 
 // the private members
 private:
-    T* m_data;
+    TYPE* m_data;
     size_t m_size;
     size_t m_capacity;
 
 };
 
 // the public methods
-template <typename T>
-Vector<T>::Vector()
+template <class TYPE>
+Vector<TYPE>::Vector()
 {
     m_data = nullptr;
     m_size = 0;
     m_capacity = 0;
 }
 
-template <typename T>
-Vector<T>::Vector(const T* data, const size_t size, const size_t capacity)
+template <class TYPE>
+Vector<TYPE>::Vector(const TYPE* data, const size_t size, const size_t capacity)
 {
     m_size = size;
     m_capacity = capacity;
-    m_data = new T[size];
+    m_data = new TYPE[m_size];
     for(size_t i = 0; i < capacity; i++)
     {
         m_data[i] = data[i];
     }
 }
 
-template <typename T>
-Vector<T>::Vector(const Vector &other)
+template <class TYPE>
+Vector<TYPE>::Vector(const Vector& other)
 {
     if(this != &other)
     {
@@ -76,8 +76,8 @@ Vector<T>::Vector(const Vector &other)
     }
 }
 
-template <typename T>
-Vector<T>& Vector<T>::operator=(const Vector& other)
+template <class TYPE>
+Vector<TYPE>& Vector<TYPE>::operator=(const Vector& other)
 {
     if(this != &other)
     {
@@ -86,21 +86,20 @@ Vector<T>& Vector<T>::operator=(const Vector& other)
     return *this;
 }
 
-template <typename T>
-T& Vector<T>::operator [](size_t idx)
+template <class TYPE>
+TYPE& Vector<TYPE>::operator [](const size_t& idx)
 {
     return m_data[idx];
 }
 
-template <typename T>
-Vector<T>::~Vector()
+template <class TYPE>
+Vector<TYPE>::~Vector()
 {
     delete[] m_data;
-    m_data = nullptr;
 }
 
-template <typename T>
-void Vector<T>::push_back(const T& data)
+template <class TYPE>
+void Vector<TYPE>::push_back(const TYPE& data)
 {
     if(m_capacity >= m_size)
     {
@@ -110,10 +109,10 @@ void Vector<T>::push_back(const T& data)
     m_capacity++;
 }
 
-template <typename T>
-void Vector<T>::pop_back()
+template <class TYPE>
+void Vector<TYPE>::pop_back()
 {
-    T* newData = new T[m_capacity - 1];
+    TYPE* newData = new TYPE[m_capacity - 1];
     for(size_t i = 0; i < m_capacity - 1; i++)
     {
         newData[i] = m_data[i];
@@ -123,8 +122,8 @@ void Vector<T>::pop_back()
     m_capacity--;
 }
 
-template <typename T>
-void Vector<T>::insert(const T& data, const size_t& position)
+template <class TYPE>
+void Vector<TYPE>::insert(const TYPE& data, const size_t& position)
 {
     if(position < 0 || position > m_capacity)
     {
@@ -137,7 +136,7 @@ void Vector<T>::insert(const T& data, const size_t& position)
         {
             resize(m_size * 2);
         }
-        T* newData = new T[m_size];
+        TYPE* newData = new TYPE[m_size];
         for(size_t i = 0; i <= m_capacity; i++)
         {
             if(i < position)
@@ -159,8 +158,8 @@ void Vector<T>::insert(const T& data, const size_t& position)
     }
 }
 
-template <typename T>
-void Vector<T>::erase(const size_t& position)
+template <class TYPE>
+void Vector<TYPE>::erase(const size_t& position)
 {
     if(position < 0 || position > m_capacity)
     {
@@ -180,10 +179,10 @@ void Vector<T>::erase(const size_t& position)
     m_capacity--;
 }
 
-template <typename T>
-void Vector<T>::sort()
+template <class TYPE>
+void Vector<TYPE>::sort()
 {
-    T temp;
+    TYPE temp;
     for(size_t i = 0; i < m_capacity; i++)
     {
         for(size_t j = 0; j < m_capacity - i - 1; j++)
@@ -198,8 +197,8 @@ void Vector<T>::sort()
     }
 }
 
-template <typename T>
-void Vector<T>::clear()
+template <class TYPE>
+void Vector<TYPE>::clear()
 {
     delete[] m_data;
     m_data = nullptr;
@@ -207,39 +206,39 @@ void Vector<T>::clear()
     m_capacity = 0;
 }
 
-template <typename T>
-size_t Vector<T>::getSize() const
+template <class TYPE>
+size_t Vector<TYPE>::getSize() const
 {
     return this->m_size;
 }
 
 
-template <typename T>
-size_t Vector<T>::getCapacity() const
+template <class TYPE>
+size_t Vector<TYPE>::getCapacity() const
 {
     return m_capacity;
 }
 
-template <typename T>
-bool Vector<T>::isEmpty() const
+template <class TYPE>
+bool Vector<TYPE>::isEmpty() const
 {
     return m_size == 0;
 }
 
-template <typename T>
-T& Vector<T>::front() const
+template <class TYPE>
+TYPE& Vector<TYPE>::front() const
 {
     return m_data[0];
 }
 
-template <typename T>
-T& Vector<T>::back() const
+template <class TYPE>
+TYPE& Vector<TYPE>::back() const
 {
     return m_data[m_capacity - 1];
 }
 
-template <typename T>
-void Vector<T>::print()
+template <class TYPE>
+void Vector<TYPE>::print() const
 {
     for(size_t i = 0; i < m_capacity; i++)
     {
@@ -248,11 +247,11 @@ void Vector<T>::print()
 }
 
 // the private methods
-template <typename T>
-void Vector<T>::resize(const size_t& newSize)
+template <class TYPE>
+void Vector<TYPE>::resize(const size_t& newSize)
 {
     m_size = newSize;
-    T* newData = new T[m_size];
+    TYPE* newData = new TYPE[m_size];
     for(size_t i = 0; i < m_capacity; i++)
     {
         newData[i] = m_data[i];
@@ -261,12 +260,12 @@ void Vector<T>::resize(const size_t& newSize)
     m_data = newData;
 }
 
-template <typename T>
-void Vector<T>::copy(const Vector &other)
+template <class TYPE>
+void Vector<TYPE>::copy(const Vector &other)
 {
     m_size = other.m_size;
     m_capacity = other.m_capacity;
-    m_data = new T[m_size];
+    m_data = new TYPE[m_size];
     for(size_t i = 0; i < m_capacity; i++)
     {
         m_data[i] = other.m_data[i];
