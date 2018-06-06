@@ -82,6 +82,7 @@ Vector<TYPE>& Vector<TYPE>::operator=(const Vector& other)
     {
         Copy(other);
     }
+
     return *this;
 }
 
@@ -104,6 +105,7 @@ void Vector<TYPE>::Push_back(const TYPE& data)
     {
         Resize(m_size * 2);
     }
+
     m_data[m_capacity] = data;
     m_capacity++;
 }
@@ -112,10 +114,12 @@ template <class TYPE>
 void Vector<TYPE>::Pop_back()
 {
     TYPE* newData = new TYPE[m_capacity - 1];
+
     for(size_t i = 0; i < m_capacity - 1; i++)
     {
         newData[i] = m_data[i];
     }
+
     delete[] m_data;
     m_data = newData;
     m_capacity--;
@@ -135,7 +139,9 @@ void Vector<TYPE>::Insert(const TYPE& data, const size_t& position)
         {
             Resize(m_size * 2);
         }
+
         TYPE* newData = new TYPE[m_size];
+
         for(size_t i = 0; i <= m_capacity; i++)
         {
             if(i < position)
@@ -151,6 +157,7 @@ void Vector<TYPE>::Insert(const TYPE& data, const size_t& position)
                 newData[i] = m_data[i - 1];
             }
         }
+
         delete[] m_data;
         m_data = newData;
         m_capacity++;
@@ -165,6 +172,7 @@ void Vector<TYPE>::Erase(const size_t& position)
         cerr << "Invalid position" << endl;
         return;
     }
+
     for(size_t i = 0; i < m_capacity; i++)
     {
         if(i == position)
@@ -175,6 +183,7 @@ void Vector<TYPE>::Erase(const size_t& position)
             }
         }
     }
+
     m_capacity--;
 }
 
@@ -182,6 +191,7 @@ template <class TYPE>
 void Vector<TYPE>::Sort()
 {
     TYPE temp;
+
     for(size_t i = 0; i < m_capacity; i++)
     {
         for(size_t j = 0; j < m_capacity - i - 1; j++)
@@ -251,10 +261,12 @@ void Vector<TYPE>::Resize(const size_t& newSize)
 {
     m_size = newSize;
     TYPE* newData = new TYPE[m_size];
+
     for(size_t i = 0; i < m_capacity; i++)
     {
         newData[i] = m_data[i];
     }
+
     delete[] m_data;
     m_data = newData;
 }
@@ -265,6 +277,7 @@ void Vector<TYPE>::Copy(const Vector &other)
     m_size = other.m_size;
     m_capacity = other.m_capacity;
     m_data = new TYPE[m_size];
+
     for(size_t i = 0; i < m_capacity; i++)
     {
         m_data[i] = other.m_data[i];
