@@ -2,7 +2,7 @@
 
 int main()
 {
-    /** Creating vector of int type, in this case we will call the Parameterized Constructor. */
+        /** Creating vector of int type, in this case we will call the Parameterized Constructor. */
     int array[2] = { 2, 4 };
     Vector<int> myVector(array, 4, 2);
 
@@ -65,7 +65,7 @@ int main()
     assignmentVector.clear();
 
     /** print empty vector*/
-    cout << "Cleared vector: " << (assignmentVector.empty() == true ? "yes " : "false ");
+    cout << "Cleared vector: " << (assignmentVector.empty() == true ? "yes " : "no ") << endl;
     assignmentVector.print();
     cout << endl;
 
