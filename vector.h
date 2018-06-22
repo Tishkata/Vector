@@ -10,49 +10,49 @@ class Vector
 {
 // the public constructors and operators
 public:
-    Vector();
-    Vector(const TYPE* data, const size_t size, const size_t capacity);
-    Vector(const Vector& other);
-    Vector& operator =(const Vector& other);
-    TYPE& operator [](const size_t& idx);
-    bool operator ==(const Vector& other);
-    bool operator !=(const Vector& other);
-    bool operator <(const Vector& other);
-    bool operator >(const Vector& other);
-    bool operator <=(const Vector& other);
-    bool operator >=(const Vector& other);
-    ~Vector();
+    Vector(); // default constructor
+    Vector(const TYPE* data, const size_t size, const size_t capacity); // parameterized constructor
+    Vector(const Vector& other); // copy constructor
+    Vector& operator =(const Vector& other); // assignment operator
+    TYPE& operator [](const size_t& idx); // access operator
+    bool operator ==(const Vector& other); // returns true if two vectors are equal
+    bool operator !=(const Vector& other); // returns true if two vectors are different
+    bool operator <(const Vector& other); // returns true if first vector is smaller than second vector
+    bool operator >(const Vector& other); // returns true if first vector is bigger than second vector
+    bool operator <=(const Vector& other); // returns true if first vector is smaller than or equal to second vector
+    bool operator >=(const Vector& other); // returns true if first vector is bigger than or equal to second vector
+    ~Vector(); // destructor
 
 // the public methods
 public:
-    void assign(const size_t& count, const TYPE& value);
-    void push_back(const TYPE& data);
-    void pop_back();
-    void insert(const TYPE& data, const size_t& position);
-    void erase(const size_t& position);
-    void sort();
-    void clear();
-    void shrink_to_fit();
-    void swap( Vector& other );
+    void assign(const size_t& count, const TYPE& data); // assigns the data to vector as many times as the count
+    void push_back(const TYPE& data); // adds element to the back of vector
+    void pop_back(); // removes element of the back of vector
+    void insert(const TYPE& data, const size_t& position); // inserts element at given position of vector
+    void erase(const size_t& position); // erases element at given position of vector
+    void sort(); // sorts vector
+    void clear(); // clears vector
+    void shrink_to_fit(); // if capacity is different than size, capacity becomes equal to size
+    void swap(Vector& other);  // swaps two vectors
 
-    TYPE& at(const size_t& pos) const;
-    size_t size() const;
-    size_t capacity() const;
-    bool empty() const;
-    TYPE& front() const;
-    TYPE& back() const;
-    void print() const;
+    TYPE& at(const size_t& pos) const; // accesses element at given position of vector
+    size_t size() const; // returns size of vector
+    size_t capacity() const; // returns capacity of vector
+    bool empty() const; // returns true if vector is empty
+    TYPE& front() const; // returns front data of vector
+    TYPE& back() const; // returns back data of vector
+    void print() const; // prints vector
 
 // the private methods
 private:
-    void copy(const Vector& other);
-    void resize(const size_t& newCapacity);
+    void copy(const Vector& other); // copies one vector to another
+    void resize(const size_t& newCapacity); // resizes vector's capacity
 
 // the private members
 private:
-    TYPE* m_data;
-    size_t m_capacity;
-    size_t m_size;
+    TYPE* m_data; // data of vector
+    size_t m_capacity; // capacity of vector
+    size_t m_size; // size of vector
 };
 
 // the public methods
@@ -183,13 +183,13 @@ Vector<TYPE>::~Vector()
 }
 
 template <class TYPE>
-void Vector<TYPE>::assign(const size_t& count, const TYPE& value)
+void Vector<TYPE>::assign(const size_t& count, const TYPE& data)
 {
     m_size = count;
     m_capacity = count * 2;
     for(size_t i = 0; i < m_size; i++)
     {
-        m_data[i] = value;
+        m_data[i] = data;
     }
 }
 
@@ -310,14 +310,14 @@ void Vector<TYPE>::shrink_to_fit()
 }
 
 template <class TYPE>
-void Vector<TYPE>::swap( Vector& other )
+void Vector<TYPE>::swap(Vector& other)
 {
     size_t other_capacity = m_capacity;
     size_t other_size = m_size;
     TYPE* other_data = m_data;
-    if( this != &other )
+    if(this != &other)
     {
-        copy( other );
+        copy(other);
     }
     other.m_capacity = other_capacity;
     other.m_size = other_size;
