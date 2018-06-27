@@ -89,10 +89,10 @@ public:
     const Iterator cbegin() const; // returns const iterator to front of vector
     Iterator end() const; // returns iterator to back of vector
     const Iterator cend() const; // returns const iterator to back of vector
-    Reverse_Iterator rbegin() const; // returns iterator to front of vector
-    const Reverse_Iterator crbegin() const; // returns const iterator to front of vector
-    Reverse_Iterator rend() const; // returns iterator to back of vector
-    const Reverse_Iterator crend() const; // returns const iterator to back of vector
+    Reverse_Iterator rbegin() const; // returns reverse iterator to front of vector
+    const Reverse_Iterator crbegin() const; // returns const reverse iterator to front of vector
+    Reverse_Iterator rend() const; // returns reverse iterator to back of vector
+    const Reverse_Iterator crend() const; // returns const reverse iterator to back of vector
     void print() const; // prints vector
 
 // the private methods
