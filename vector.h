@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-using namespace std;
-
 template <class TYPE>
 class Vector
 {
@@ -13,15 +11,61 @@ public:
     Vector(); // default constructor
     Vector(const TYPE* data, const size_t size, const size_t capacity); // parameterized constructor
     Vector(const Vector& other); // copy constructor
-    Vector& operator =(const Vector& other); // assignment operator
-    TYPE& operator [](const size_t& idx); // access operator
-    bool operator ==(const Vector& other); // returns true if two vectors are equal
-    bool operator !=(const Vector& other); // returns true if two vectors are different
-    bool operator <(const Vector& other); // returns true if first vector is smaller than second vector
-    bool operator >(const Vector& other); // returns true if first vector is bigger than second vector
-    bool operator <=(const Vector& other); // returns true if first vector is smaller than or equal to second vector
-    bool operator >=(const Vector& other); // returns true if first vector is bigger than or equal to second vector
+    Vector& operator =(const Vector& other) const; // assignment operator
+    TYPE& operator [](const size_t& idx) const; // access operator
+    bool operator ==(const Vector& other) const; // returns true if two vectors are equal
+    bool operator !=(const Vector& other) const; // returns true if two vectors are different
+    bool operator <(const Vector& other) const; // returns true if first vector is smaller than second vector
+    bool operator >(const Vector& other) const; // returns true if first vector is bigger than second vector
+    bool operator <=(const Vector& other) const; // returns true if first vector is smaller than or equal to second vector
+    bool operator >=(const Vector& other) const; // returns true if first vector is bigger than or equal to second vector
     ~Vector(); // destructor
+
+// iterator and reverse iterator of vector
+public:
+    class Iterator
+    {
+        friend class Vector;
+    public:
+        Iterator(TYPE* position); // constructor
+        const TYPE& operator *() const; // const operator to access value of position
+        TYPE& operator *(); // operator to access value of position
+        const TYPE* operator ->() const; // const operator to access pointer of position
+        TYPE* operator ->(); // operator to access pointer of position
+        Iterator& operator ++(); // operator to increase address of vector
+        Iterator operator ++(int); // operator to return value contained in address of vector
+        bool operator ==(const Iterator& other) const; // returns true if two positions are equal
+        bool operator !=(const Iterator& other) const; // returns true if two positions are different
+        bool operator <(const Iterator& other) const; // returns true if first position is smaller than second position
+        bool operator >(const Iterator& other) const; // returns true if first position is bigger than second position
+        bool operator <=(const Iterator& other) const; // returns true if first position is smaller than or equal to second position
+        bool operator >=(const Iterator& other) const; // returns true if first position is bigger than or equal to second position
+
+    private:
+        TYPE* m_position; // pointer pointing to current position in vector
+    };
+
+    class Reverse_Iterator
+    {
+        friend class Vector;
+    public:
+        Reverse_Iterator(TYPE* position); // constructor
+        const TYPE& operator *() const; // const operator to access value of position
+        TYPE& operator *(); // operator to access value of position
+        const TYPE* operator ->() const; // const operator to access pointer of position
+        TYPE* operator ->(); // operator to access pointer of position
+        Reverse_Iterator& operator --(); // operator to decrease address of vector
+        Reverse_Iterator operator --(int); // operator to return value contained in address of vector
+        bool operator ==(const Reverse_Iterator& other) const; // returns true if two positions are equal
+        bool operator !=(const Reverse_Iterator& other) const; // returns true if two positions are different
+        bool operator <(const Reverse_Iterator& other) const; // returns true if first position is smaller than second position
+        bool operator >(const Reverse_Iterator& other) const; // returns true if first position is bigger than second position
+        bool operator <=(const Reverse_Iterator& other) const; // returns true if first position is smaller than or equal to second position
+        bool operator >=(const Reverse_Iterator& other) const; // returns true if first position is bigger than or equal to second position
+
+    private:
+        TYPE* m_position; // pointer pointing to current position in vector
+    };
 
 // the public methods
 public:
@@ -41,6 +85,14 @@ public:
     bool empty() const; // returns true if vector is empty
     TYPE& front() const; // returns front data of vector
     TYPE& back() const; // returns back data of vector
+    Iterator begin() const; // returns iterator to front of vector
+    const Iterator cbegin() const; // returns const iterator to front of vector
+    Iterator end() const; // returns iterator to back of vector
+    const Iterator cend() const; // returns const iterator to back of vector
+    Reverse_Iterator rbegin() const; // returns iterator to front of vector
+    const Reverse_Iterator crbegin() const; // returns const iterator to front of vector
+    Reverse_Iterator rend() const; // returns iterator to back of vector
+    const Reverse_Iterator crend() const; // returns const iterator to back of vector
     void print() const; // prints vector
 
 // the private methods
@@ -86,7 +138,7 @@ Vector<TYPE>::Vector(const Vector& other)
 }
 
 template <class TYPE>
-Vector<TYPE>& Vector<TYPE>::operator=(const Vector& other)
+Vector<TYPE>& Vector<TYPE>::operator =(const Vector& other) const
 {
     if(this != &other)
     {
@@ -96,13 +148,13 @@ Vector<TYPE>& Vector<TYPE>::operator=(const Vector& other)
 }
 
 template <class TYPE>
-TYPE& Vector<TYPE>::operator [](const size_t& idx)
+TYPE& Vector<TYPE>::operator [](const size_t& idx) const
 {
     return m_data[idx];
 }
 
 template <class TYPE>
-bool Vector<TYPE>::operator ==(const Vector& other)
+bool Vector<TYPE>::operator ==(const Vector& other) const
 {
     if(m_capacity == other.m_capacity && m_size == other.m_size)
     {
@@ -119,13 +171,13 @@ bool Vector<TYPE>::operator ==(const Vector& other)
 }
 
 template <class TYPE>
-bool Vector<TYPE>::operator !=(const Vector& other)
+bool Vector<TYPE>::operator !=(const Vector& other) const
 {
     return !(operator ==(other));
 }
 
 template <class TYPE>
-bool Vector<TYPE>::operator <(const Vector& other)
+bool Vector<TYPE>::operator <(const Vector& other) const
 {
     if(m_capacity < other.m_capacity || m_size < other.m_size)
     {
@@ -145,7 +197,7 @@ bool Vector<TYPE>::operator <(const Vector& other)
 }
 
 template <class TYPE>
-bool Vector<TYPE>::operator >(const Vector& other)
+bool Vector<TYPE>::operator >(const Vector& other) const
 {
     if(m_capacity > other.m_capacity || m_size > other.m_size)
     {
@@ -165,13 +217,13 @@ bool Vector<TYPE>::operator >(const Vector& other)
 }
 
 template <class TYPE>
-bool Vector<TYPE>::operator <=(const Vector& other)
+bool Vector<TYPE>::operator <=(const Vector& other) const
 {
     return !(operator >(other));
 }
 
 template <class TYPE>
-bool Vector<TYPE>::operator >=(const Vector& other)
+bool Vector<TYPE>::operator >=(const Vector& other) const
 {
     return !(operator <(other));
 }
@@ -180,6 +232,168 @@ template <class TYPE>
 Vector<TYPE>::~Vector()
 {
     delete[] m_data;
+}
+
+template <class TYPE>
+Vector<TYPE>::Iterator::Iterator(TYPE* position)
+{
+    m_position = position;
+}
+
+template <class TYPE>
+const TYPE& Vector<TYPE>::Iterator::operator *() const
+{
+    return *m_position;
+}
+
+template <class TYPE>
+TYPE& Vector<TYPE>::Iterator::operator *()
+{
+    return *m_position;
+}
+
+template <class TYPE>
+const TYPE* Vector<TYPE>::Iterator::operator ->() const
+{
+    return m_position;
+}
+
+template <class TYPE>
+TYPE* Vector<TYPE>::Iterator::operator ->()
+{
+    return m_position;
+}
+
+template <class TYPE>
+typename Vector<TYPE>::Iterator& Vector<TYPE>::Iterator::operator ++()
+{
+    ++m_position;
+    return *this;
+}
+
+template <class TYPE>
+typename Vector<TYPE>::Iterator Vector<TYPE>::Iterator::operator ++(int)
+{
+    Iterator res(*this);
+    ++(*this);
+    return res;
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Iterator::operator ==(const Iterator& other) const
+{
+    return m_position == other.m_position;
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Iterator::operator !=(const Iterator& other) const
+{
+    return !(operator ==(other));
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Iterator::operator <(const Iterator& other) const
+{
+    return m_position < other.m_position;
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Iterator::operator >(const Iterator& other) const
+{
+    return m_position > other.m_position;
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Iterator::operator <=(const Iterator& other) const
+{
+    return !(operator >(other));
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Iterator::operator >=(const Iterator& other) const
+{
+    return !(operator <(other));
+}
+
+template <class TYPE>
+Vector<TYPE>::Reverse_Iterator::Reverse_Iterator(TYPE* position)
+{
+    m_position = position;
+}
+
+template <class TYPE>
+const TYPE& Vector<TYPE>::Reverse_Iterator::operator *() const
+{
+    return *m_position;
+}
+
+template <class TYPE>
+TYPE& Vector<TYPE>::Reverse_Iterator::operator *()
+{
+    return *m_position;
+}
+
+template <class TYPE>
+const TYPE* Vector<TYPE>::Reverse_Iterator::operator ->() const
+{
+    return m_position;
+}
+
+template <class TYPE>
+TYPE* Vector<TYPE>::Reverse_Iterator::operator ->()
+{
+    return m_position;
+}
+
+template <class TYPE>
+typename Vector<TYPE>::Reverse_Iterator& Vector<TYPE>::Reverse_Iterator::operator --()
+{
+    --m_position;
+    return *this;
+}
+
+template <class TYPE>
+typename Vector<TYPE>::Reverse_Iterator Vector<TYPE>::Reverse_Iterator::operator --(int)
+{
+    Reverse_Iterator res(*this);
+    --(*this);
+    return res;
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Reverse_Iterator::operator ==(const Reverse_Iterator& other) const
+{
+    return m_position == other.m_position;
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Reverse_Iterator::operator !=(const Reverse_Iterator& other) const
+{
+    return !(other == *this);
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Reverse_Iterator::operator <(const Reverse_Iterator& other) const
+{
+    return m_position < other.m_position;
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Reverse_Iterator::operator >(const Reverse_Iterator& other) const
+{
+    return m_position > other.m_position;
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Reverse_Iterator::operator <=(const Reverse_Iterator& other) const
+{
+    return !(operator >(other));
+}
+
+template <class TYPE>
+bool Vector<TYPE>::Reverse_Iterator::operator >=(const Reverse_Iterator& other) const
+{
+    return !(operator <(other));
 }
 
 template <class TYPE>
@@ -222,7 +436,7 @@ void Vector<TYPE>::insert(const TYPE& data, const size_t& position)
 {
     if(position < 0 || position > m_size)
     {
-        cerr << "Invalid position" << endl;
+        std::cerr << "Invalid position" << std::endl;
         return;
     }
     else
@@ -258,7 +472,7 @@ void Vector<TYPE>::erase(const size_t& position)
 {
     if(position < 0 || position > m_size)
     {
-        cerr << "Invalid position" << endl;
+        std::cerr << "Invalid position" << std::endl;
         return;
     }
     for(size_t i = 0; i < m_size; i++)
@@ -322,7 +536,6 @@ void Vector<TYPE>::swap(Vector& other)
     other.m_capacity = other_capacity;
     other.m_size = other_size;
     other.m_data = other_data;
-
 }
 
 template <class TYPE>
@@ -362,11 +575,59 @@ TYPE& Vector<TYPE>::back() const
 }
 
 template <class TYPE>
+typename Vector<TYPE>::Iterator Vector<TYPE>::begin() const
+{
+    return Vector<TYPE>::Iterator(m_data);
+}
+
+template <class TYPE>
+const typename Vector<TYPE>::Iterator Vector<TYPE>::cbegin() const
+{
+    return Vector<TYPE>::Iterator(m_data);
+}
+
+template <class TYPE>
+typename Vector<TYPE>::Iterator Vector<TYPE>::end() const
+{
+    return Vector<TYPE>::Iterator(m_data + m_size);
+}
+
+template <class TYPE>
+const typename Vector<TYPE>::Iterator Vector<TYPE>::cend() const
+{
+    return Vector<TYPE>::Iterator(m_data + m_size);
+}
+
+template <class TYPE>
+typename Vector<TYPE>::Reverse_Iterator Vector<TYPE>::rbegin() const
+{
+    return Vector<TYPE>::Reverse_Iterator(m_data);
+}
+
+template <class TYPE>
+const typename Vector<TYPE>::Reverse_Iterator Vector<TYPE>::crbegin() const
+{
+    return Vector<TYPE>::Reverse_Iterator(m_data);
+}
+
+template <class TYPE>
+typename Vector<TYPE>::Reverse_Iterator Vector<TYPE>::rend() const
+{
+    return Vector<TYPE>::Reverse_Iterator(m_data + m_size);
+}
+
+template <class TYPE>
+const typename Vector<TYPE>::Reverse_Iterator Vector<TYPE>::crend() const
+{
+    return Vector<TYPE>::Reverse_Iterator(m_data + m_size);
+}
+
+template <class TYPE>
 void Vector<TYPE>::print() const
 {
     for(size_t i = 0; i < m_size; i++)
     {
-        cout << m_data[i] << " ";
+        std::cout << m_data[i] << " ";
     }
 }
 

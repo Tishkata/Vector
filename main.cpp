@@ -2,9 +2,9 @@
 
 int main()
 {
-        /** Creating vector of int type, in this case we will call the Parameterized Constructor. */
+    /** Creating vector of int type, in this case we will call the Parameterized Constructor. */
     int array[2] = { 2, 4 };
-    Vector<int> myVector(array, 4, 2);
+    Vector<int> myVector(array, 2, 4);
 
     /** adding elements into vector */
     myVector.push_back(6);
@@ -18,56 +18,83 @@ int main()
     myVector.insert(54, 5);
 
     /** print the vector */
-    cout << "Vector elements: ";
-    myVector.print();
-    cout << endl;
+    std::cout << "Vector elements: ";
+    for(Vector<int>::Iterator itr = myVector.begin(); itr != myVector.end(); itr++)
+    {
+        std::cout << *itr << " ";
+    }
+    std::cout << std::endl;
 
     /** Creating new vector with that will be a copy of the one above, in this case we call the Copy Constructor */
     Vector<int> copyVector(myVector);
 
     /** Print copied vector */
-    cout << "Copied vector elements: ";
-    copyVector.print();
-    cout << endl;
+    std::cout << "Copied vector elements: ";
+    for(Vector<int>::Iterator itr = copyVector.begin(); itr != copyVector.end(); itr++)
+    {
+        std::cout << *itr << " ";
+    }
+    std::cout << std::endl;
 
     /** Creating new vector with assignment operator, almost the same as the Copy Constructor */
     Vector<int> assignmentVector = copyVector;
 
     /** Print assignment vector */
-    cout << "Assignment vector elements: ";
-    assignmentVector.print();
-    cout << endl;
+    std::cout << "Assignment vector elements: ";
+    for(Vector<int>::Iterator itr = assignmentVector.begin(); itr != assignmentVector.end(); itr++)
+    {
+        std::cout << *itr << " ";
+    }
+    std::cout << std::endl;
 
     /** first and last element of vector */
-    cout << "First element: " << assignmentVector.front() << "\nLast element: " << assignmentVector.back() << endl;
+    std::cout << "First element: " << assignmentVector.front() << "\nLast element: " << assignmentVector.back() << std::endl;
 
     /** remove last element of vector, in this case we remove 5 */
     assignmentVector.pop_back();
-    cout << "New vector elements: ";
-    assignmentVector.print();
-    cout << endl;
+    std::cout << "New vector elements: ";
+    for(Vector<int>::Iterator itr = assignmentVector.begin(); itr != assignmentVector.end(); itr++)
+    {
+        std::cout << *itr << " ";
+    }
+    std::cout << std::endl;
 
     /** remove element at position, in this case we remove 3 on fourth position */
     assignmentVector.erase(4);
-    cout << "New vector elements: ";
-    assignmentVector.print();
-    cout << endl;
+    std::cout << "New vector elements: ";
+    for(Vector<int>::Iterator itr = assignmentVector.begin(); itr != assignmentVector.end(); itr++)
+    {
+        std::cout << *itr << " ";
+    }
+    std::cout << std::endl;
 
     /** sort vector */
     assignmentVector.sort();
 
     /** print sorted vector */
-    cout << "Sorted vector elements: ";
-    assignmentVector.print();
-    cout << endl;
+    std::cout << "Sorted vector elements: ";
+    for(Vector<int>::Iterator itr = assignmentVector.begin(); itr != assignmentVector.end(); itr++)
+    {
+        std::cout << *itr << " ";
+    }
+    std::cout << std::endl;
 
     /** clear vector */
     assignmentVector.clear();
 
     /** print empty vector*/
-    cout << "Cleared vector: " << (assignmentVector.empty() == true ? "yes " : "no ") << endl;
-    assignmentVector.print();
-    cout << endl;
+    std::cout << "Cleared vector: " << (assignmentVector.empty() == true ? "yes " : "no ") << std::endl;
+    if(assignmentVector.empty() == false)
+    {
+        for(Vector<int>::Iterator itr = assignmentVector.begin(); itr != assignmentVector.end(); itr++)
+        {
+            std::cout << *itr << " ";
+        }
+    }
+    else
+    {
+        std::cout << "Vector elements: None" << std::endl;
+    }
 
     return 0;
 }
